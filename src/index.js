@@ -35,13 +35,28 @@ app.get('/', (req, res) => {
   res.send(JSON.stringify(body));
 });
 
-// Register a PUT all messages end point
+// Register a GET all messages end point
 app.get('/messages', jsonParser, (req, res) => {
   MongoClient.connect(url, (err, client) => {
     if (err) throw err;
     const db = client.db("local");
     // load all the messages and send as a response
     db.collection('messages').find({}).toArray(function (err, result) {
+      if (err) throw err;
+      res.send(result);
+    });
+  });
+});
+
+// Register a GET messages by user end point
+app.get('/messages/:dest', jsonParser, (req, res) => {
+  MongoClient.connect(url, (err, client) => {
+    if (err) throw err;
+    const db = client.db("local");
+    const dest = req.params.dest;
+    // TODO: sanity check that path param
+    // load all the messages for that dest and send as a response
+    db.collection('messages').find({ dest: dest }).toArray(function (err, result) {
       if (err) throw err;
       res.send(result);
     });
