@@ -2,9 +2,10 @@
 
 ## Quick start
 
-    npm install                                 # install deps
+    yarn                                        # install deps
+    npx husky install                           # set up code rules
     docker-compose up -d                        # create mongo db
-    npm start                                   # start the server
+    yarn start                                  # start the server
     wget -q -O - http://localhost:3000/messages # get a list of all messages
 
 ## Send a message (CLI)
